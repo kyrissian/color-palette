@@ -7,6 +7,16 @@ function rgbToHex(r, g, b) {
   );
 }
 
+// change text color based on background color for better readability
+function checkTextContrast(color, htmlElement) {
+  const luminance = chroma(color).luminance();
+  if (luminance > 0.5) {
+    htmlElement.style.color = "#000";
+  } else {
+    htmlElement.style.color = "#fff";
+  }
+}
+
 // Generate random colors and update the UI with color values
 function generateColors() {
   for (const color of colors) {
@@ -24,7 +34,12 @@ function generateColors() {
 
     const p = color.querySelector("p");
     p.textContent = hexString;
+    checkTextContrast(rgbString, p);
+
+    const lockSpan = color.querySelector(".lock-icon");
+    checkTextContrast(rgbString, lockSpan);
   }
+
   generateBtn.classList.add("rotate"); //start animation
   setTimeout(() => {
     generateBtn.classList.remove("rotate"); //stop animation
