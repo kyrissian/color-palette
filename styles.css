@@ -34,7 +34,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 60px;
+  gap: 150px;
 }
 
 .ctrl-btn-container {
@@ -64,7 +64,8 @@ i {
   }
 }
 
-.copy-container {
+.copy-container,
+.save-container {
   position: fixed;
   top: 0%;
   left: 0;
@@ -79,7 +80,8 @@ i {
   opacity: 0;
 }
 
-.copy-popup {
+.copy-popup,
+.save-popup {
   background-color: white;
   padding: 20px 40px;
   display: flex;
@@ -93,19 +95,41 @@ i {
   transform: translateY(-2rem);
 }
 
-.copy-popup h4 {
+.copy-popup h4,
+.save-popup h4 {
   font-size: xx-large;
   color: black;
 }
 
-.copy-container.active {
+.copy-container.active,
+.save-container.active {
   opacity: 1;
 }
 
-.copy-popup.active {
+.copy-popup.active,
+.save-popup.active {
   transform: translateY(0);
+  pointer-events: all;
+}
+
+.save-name {
+  padding: 1rem;
+  font-size: 1.5rem;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
 .lock-icon {
   cursor: pointer;
+}
+
+.save-submit {
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  background-color: rgb(92, 10, 92);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
 }

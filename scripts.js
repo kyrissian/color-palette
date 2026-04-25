@@ -52,7 +52,7 @@ generateBtn.addEventListener("click", generateColors);
 window.addEventListener("DOMContentLoaded", generateColors);
 
 window.addEventListener("keydown", (event) => {
-  if (event.code === "Space" || event.key.toLowerCase() === "g") {
+  if (event.key.toLowerCase() === "g") {
     generateColors();
   }
 });
@@ -99,3 +99,52 @@ popup.addEventListener("transitionend", () => {
   popup.classList.remove("active");
   popupBox.classList.remove("active");
 });
+
+// Get all modal and button elements
+const saveBtn = document.getElementById("save-btn");
+const saveContainer = document.querySelector(".save-container");
+const closeSave = document.querySelector(".close-save");
+const saveSubmit = document.querySelector(".save-submit");
+const saveName = document.querySelector(".save-name");
+
+function openPalette() {
+  const popup = saveContainer.children[0];
+  popup.classList.add("active");
+  saveContainer.classList.add("active");
+}
+
+function closePalette() {
+  const popup = saveContainer.children[0];
+  popup.classList.remove("active");
+  saveContainer.classList.remove("active");
+}
+
+const savedPalettes = [];
+
+// Save current colors as a new palette in local storage and render it in the library
+function savePalette() {
+  // hide modal after saving
+  saveContainer.classList.remove("active");
+  popup.classList.remove("active");
+  // get palette name from input
+  const name = saveName.value;
+  const hexColors = [];
+  // get current hex color codes from the UI/divs
+  const currentHexes = document.querySelectorAll(".color p");
+  currentHexes.forEach((hex) => {
+    hexColors.push(hex.innerText);
+  });
+
+  // create palette object with name and colors
+  const paletteObject = { name: name, colors: hexColors };
+  // add to savedPalettes array
+  savedPalettes.push(paletteObject);
+  // save to local storage
+  localStorage.setItem("palettes", JSON.stringify(savedPalettes));
+  // clear input field
+  saveName.value = "";
+}
+
+saveBtn.addEventListener("click", openPalette);
+closeSave.addEventListener("click", closePalette);
+saveSubmit.addEventListener("click", savePalette);
